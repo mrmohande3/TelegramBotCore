@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using Serilog;
+using TelegramBotCore.Services;
 
 namespace TelegramBotCore
 {
@@ -32,7 +34,13 @@ namespace TelegramBotCore
              {
                  Log.CloseAndFlush();
              }*/
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            using (var scop = host.Services.CreateScope())
+            {
+                var init = scop.ServiceProvider.GetService<DBInitializer>();
+                init.Seed();
+            }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

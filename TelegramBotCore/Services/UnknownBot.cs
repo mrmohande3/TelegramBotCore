@@ -18,8 +18,8 @@ namespace TelegramBotCore.Services
     {
         private ITelegramBotClient _telegramUnkownBotClient = new TelegramBotClient(Startup.UnknownBot);
         private Models.Context.User user;
-        private readonly IUtilitiesWrapper _utilitiesWrapper;
-        private readonly IRepositoryWrapper _repositoryWrapper;
+        private IUtilitiesWrapper _utilitiesWrapper;
+        private IRepositoryWrapper _repositoryWrapper;
 
         public UnknownBot(IUtilitiesWrapper utilitiesWrapper, IRepositoryWrapper repositoryWrapper)
         {

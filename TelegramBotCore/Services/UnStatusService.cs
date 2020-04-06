@@ -17,8 +17,8 @@ namespace TelegramBotCore.Services
     {
         private ITelegramBotClient _telegramBotClient = new TelegramBotClient("509847876:AAG0aTib65R2nDFZmzu7zCbRydHBJ8MpuwI");
         private Models.Context.User user;
-        private readonly IUtilitiesWrapper _utilitiesWrapper;
-        private readonly IRepositoryWrapper _repositoryWrapper;
+        private IUtilitiesWrapper _utilitiesWrapper;
+        private IRepositoryWrapper _repositoryWrapper;
 
         public UnStatusService(IUtilitiesWrapper utilitiesWrapper, IRepositoryWrapper repositoryWrapper)
         {
@@ -45,7 +45,6 @@ namespace TelegramBotCore.Services
 
         private async void GiveUserCrashes(UpdateBot updateBot)
         {
-            user = await  _repositoryWrapper.Users.GetEntryAsync(u => u.ChatId == updateBot.message.Chat.id);
             var usernames = updateBot.message.text.Split('\n');
 
             foreach (var username in usernames)

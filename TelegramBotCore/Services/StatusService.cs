@@ -24,8 +24,8 @@ namespace TelegramBotCore.Services
     {
         private ITelegramBotClient _telegramBotClient = new TelegramBotClient("509847876:AAG0aTib65R2nDFZmzu7zCbRydHBJ8MpuwI");
         private Models.Context.User user;
-        private readonly IUtilitiesWrapper _utilitiesWrapper;
-        private readonly IRepositoryWrapper _repositoryWrapper;
+        private IUtilitiesWrapper _utilitiesWrapper;
+        private IRepositoryWrapper _repositoryWrapper;
 
         public StatusService(IUtilitiesWrapper utilitiesWrapper, IRepositoryWrapper repositoryWrapper)
         {
@@ -193,12 +193,12 @@ namespace TelegramBotCore.Services
         private async void GiveCrushUser(UpdateBot updateBot)
         {
             user.UserStatus = UserStatus.GiveCrashes;
-            await _repositoryWrapper.Users.UpdateEntryAsync(user);
             await _telegramBotClient.SendTextMessageAsync(user.ChatId,
                $"کاربر گرامی با موفقیت اعتبار سنجی شما انجام شد \n حال لیست کراش های خود را وارد کنید");
             await _telegramBotClient.SendTextMessageAsync(user.ChatId,
                $"ای دی تلگرام انها را در هر خط وارد کنید \n مثال : \n @HHHHH \n @SSSSS", ParseMode.Default, false, false, 0,
                _utilitiesWrapper.KeyboardFactory.GetKeyboard(KeyboardType.Back));
+            await _repositoryWrapper.Users.UpdateEntryAsync(user);
         }
         private async void CrushList(UpdateBot updateBot)
         {

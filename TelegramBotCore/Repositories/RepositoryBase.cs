@@ -10,7 +10,7 @@ namespace TelegramBotCore.Repositories
 {
     public class RepositoryBase<T> :IRepositoryAsync<T>, IRepository<T> where T : Entity
     {
-        private readonly BotContext _context;
+        private BotContext _context;
 
         public RepositoryBase(BotContext context)
         {
@@ -119,10 +119,18 @@ namespace TelegramBotCore.Repositories
 
         public async Task<T> GetEntryAsync(Expression<Func<T, bool>> expression)
         {
-            var user = await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(expression);
-            if (user != null)
-                _context.Entry(user).State = EntityState.Detached;
-            return user;
+            try
+            {
+                var user = await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(expression);
+                if (user != null)
+                    _context.Entry(user).State = EntityState.Detached;
+                await _context.SaveChangesAsync();
+                return user;
+            }
+            catch (Exception e)
+            {
+                return await Task.FromException<T>(e);
+            }
         }
 
         public async Task<IEnumerable<T>> WhereAsync(Func<T, bool> expression)

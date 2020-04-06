@@ -8,7 +8,7 @@ namespace TelegramBotCore.Repositories
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private readonly BotContext _context;
+        private BotContext _context;
 
         public RepositoryWrapper(BotContext context)
         {
@@ -67,13 +67,5 @@ namespace TelegramBotCore.Repositories
                 return userChats;
             }
         }
-
-
-
-
-        //public void Dispose()
-        //{
-        //    _context?.Dispose();
-        //}
     }
 }

@@ -16,7 +16,7 @@ namespace TelegramBotCore.Services
         private StatusService _statusService;
         private UnStatusService _unStatusService;
         private InlineService _inlineService;
-        private readonly IRepositoryWrapper _repositoryWrapper;
+        private IRepositoryWrapper _repositoryWrapper;
         private ITelegramBotClient _telegramBotClient = new TelegramBotClient("509847876:AAG0aTib65R2nDFZmzu7zCbRydHBJ8MpuwI");
         private IUtilitiesWrapper _utilitiesWrapper;
         public BotService(InlineService inlineService,StatusService statusService, IRepositoryWrapper repositoryWrapper,UnStatusService unStatusService , IUtilitiesWrapper utilitiesWrapper)

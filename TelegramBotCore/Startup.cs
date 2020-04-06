@@ -37,7 +37,7 @@ namespace TelegramBotCore
                     options.UseSqlServer(Configuration.GetConnectionString("LocalConnection"));
                     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                     //options.UseSqlServer(Configuration.GetConnectionString("ServerConnection"));
-                }, ServiceLifetime.Scoped);
+                },ServiceLifetime.Singleton);
             services.AddScoped<BotService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<UnknownBot>();
@@ -45,6 +45,7 @@ namespace TelegramBotCore
             services.AddScoped<IUtilitiesWrapper, UtilitiesWrapper>();
             services.AddScoped<UnStatusService>();
             services.AddScoped<InlineService>();
+            services.AddScoped<DBInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
