@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TelegramBotCore.Migrations
 {
-    public partial class created : Migration
+    public partial class initialMySql : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +13,7 @@ namespace TelegramBotCore.Migrations
                 columns: table => new
                 {
                     ChatId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsRemoved = table.Column<bool>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     RemoveTime = table.Column<DateTime>(nullable: false),
@@ -28,7 +29,7 @@ namespace TelegramBotCore.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsRemoved = table.Column<bool>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     RemoveTime = table.Column<DateTime>(nullable: false),
@@ -42,12 +43,13 @@ namespace TelegramBotCore.Migrations
                     ChatId = table.Column<int>(nullable: false),
                     IsVerified = table.Column<bool>(nullable: false),
                     TelegramUserId = table.Column<int>(nullable: false),
-                    UnknownChatId = table.Column<int>(nullable: false)
+                    UnknownChatId = table.Column<int>(nullable: false),
+                    InstaUserId = table.Column<string>(nullable: true),
+                    InstaProfileImage = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
-                    table.CheckConstraint("CK_Users_UserStatus_Enum_Constraint", "[UserStatus] IN(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)");
                 });
 
             migrationBuilder.CreateTable(
@@ -55,7 +57,7 @@ namespace TelegramBotCore.Migrations
                 columns: table => new
                 {
                     ChatMessageId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsRemoved = table.Column<bool>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     RemoveTime = table.Column<DateTime>(nullable: false),
@@ -82,7 +84,7 @@ namespace TelegramBotCore.Migrations
                 columns: table => new
                 {
                     JionedId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsRemoved = table.Column<bool>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     RemoveTime = table.Column<DateTime>(nullable: false),
@@ -105,7 +107,7 @@ namespace TelegramBotCore.Migrations
                 columns: table => new
                 {
                     CrashId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsRemoved = table.Column<bool>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     RemoveTime = table.Column<DateTime>(nullable: false),
@@ -129,7 +131,7 @@ namespace TelegramBotCore.Migrations
                 columns: table => new
                 {
                     UserChatId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsRemoved = table.Column<bool>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     RemoveTime = table.Column<DateTime>(nullable: false),

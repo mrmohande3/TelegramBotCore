@@ -34,7 +34,7 @@ namespace TelegramBotCore
             services
                 .AddDbContext<BotContext>((options) =>
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("LocalConnection"));
+                    options.UseMySql(Configuration.GetConnectionString("MySqlConnection"));
                     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                     //options.UseSqlServer(Configuration.GetConnectionString("ServerConnection"));
                 },ServiceLifetime.Singleton);
